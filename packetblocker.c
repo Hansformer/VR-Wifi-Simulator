@@ -19,11 +19,9 @@ unsigned int processed_packets;
 unsigned int accepted_packets;
 unsigned int dropped_packets;
 
-unsigned int blocker_fn(unsigned int hooknum,
+unsigned int blocker_fn(void *priv,
                         struct sk_buff *skb,
-                        const struct net_device *in,
-                        const struct net_device *out,
-                        int (*okfn)(struct sk_buff*)) {
+                        const struct nf_hook_state *state) {
     processed_packets++;
     if (processed_packets == 2147483646) {
         // Precautionary measure.
